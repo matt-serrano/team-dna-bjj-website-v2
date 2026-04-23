@@ -1,51 +1,133 @@
+"use client"
+
+import { useMemo, useState } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+
 const programs = [
   {
-    title: "Fundamentals",
-    description: "Structured classes for newer students building strong mechanics, timing, and confidence.",
+    title: "Age 5-8 Program",
+    description:
+      "An energetic beginner-friendly class focused on movement, listening, confidence, and early Jiu-Jitsu fundamentals.",
   },
   {
-    title: "All Levels",
-    description: "Mixed sessions that balance technical depth, positional work, and live rounds.",
+    title: "Age 8-13 Program",
+    description:
+      "A structured youth program that develops technique, discipline, self-defense, and athletic confidence in a supportive setting.",
   },
   {
-    title: "Competition",
-    description: "Higher-intensity training for athletes preparing for sharper pace and performance.",
+    title: "Adult & Teen Program",
+    description:
+      "Technical training for beginners and experienced students with a balance of drilling, live rounds, and real skill development.",
   },
-];
+  {
+    title: "Women",
+    description:
+      "A welcoming space to build confidence, learn practical self-defense, and train Brazilian Jiu-Jitsu with strong community support.",
+  },
+]
 
 export function Programs() {
+  const [startIndex, setStartIndex] = useState(0)
+
+  const visiblePrograms = useMemo(() => {
+    return Array.from({ length: 3 }, (_, index) => {
+      const programIndex = (startIndex + index) % programs.length
+      return {
+        ...programs[programIndex],
+        position: index,
+      }
+    })
+  }, [startIndex])
+
+  const showPrevious = () => {
+    setStartIndex((current) => (current - 1 + programs.length) % programs.length)
+  }
+
+  const showNext = () => {
+    setStartIndex((current) => (current + 1) % programs.length)
+  }
+
   return (
-    <section id="programs" className="py-20 md:py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-            <span className="text-sm uppercase tracking-wider text-muted-foreground font-medium">Programs</span>
+    <section id="programs" className="bg-background py-20 md:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <div className="mb-4 inline-flex items-center">
+            <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Programs</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 text-balance">
+          <h2 className="mb-6 text-3xl font-bold text-foreground text-balance md:text-5xl">
             Training paths for every stage
           </h2>
           <p className="text-lg text-muted-foreground text-pretty">
-            A clean section placeholder for the academy program lineup, designed to slot into the imported homepage
-            without changing its visual language.
+            Programs designed for everyone, with coaching that meets students at every stage.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-          {programs.map((program) => (
-            <article
-              key={program.title}
-              className="p-8 rounded-2xl bg-card border border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
-                <span className="text-primary font-semibold text-sm uppercase tracking-wide">DNA</span>
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-3">{program.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{program.description}</p>
-            </article>
-          ))}
+        <div className="group relative">
+          <button
+            type="button"
+            onClick={showPrevious}
+            aria-label="Show previous program"
+            className="absolute -left-4 top-1/2 z-10 hidden h-11 w-11 -translate-x-full -translate-y-1/2 items-center justify-center rounded-full border border-border/80 bg-card/90 text-foreground opacity-0 shadow-lg shadow-black/20 transition duration-300 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 hover:border-primary/50 hover:text-primary md:flex lg:-left-5"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+
+          <div className="grid flex-1 gap-6 md:grid-cols-3 lg:gap-8">
+            {visiblePrograms.map((program) => {
+              const isFeatured = program.position === 1
+
+              return (
+                <article
+                  key={`${program.title}-${startIndex}`}
+                  className={`rounded-2xl border p-8 transition-all duration-300 ${
+                    isFeatured
+                      ? "border-primary/60 bg-card shadow-2xl shadow-primary/10 md:-translate-y-4 md:scale-[1.04]"
+                      : "border-border bg-card/80 md:scale-[0.96] md:opacity-75"
+                  }`}
+                >
+                  <div
+                    className={`mb-6 flex h-12 w-12 items-center justify-center rounded-xl ${
+                      isFeatured ? "bg-primary/15" : "bg-primary/10"
+                    }`}
+                  >
+                    <span className="text-sm font-semibold uppercase tracking-wide text-primary">DNA</span>
+                  </div>
+                  <h3 className="mb-3 text-xl font-semibold text-foreground">{program.title}</h3>
+                  <p className="leading-relaxed text-muted-foreground">{program.description}</p>
+                </article>
+              )
+            })}
+          </div>
+
+          <button
+            type="button"
+            onClick={showNext}
+            aria-label="Show next program"
+            className="absolute -right-4 top-1/2 z-10 hidden h-11 w-11 translate-x-full -translate-y-1/2 items-center justify-center rounded-full border border-border/80 bg-card/90 text-foreground opacity-0 shadow-lg shadow-black/20 transition duration-300 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100 hover:border-primary/50 hover:text-primary md:flex lg:-right-5"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="mt-6 flex items-center justify-center gap-3 md:hidden">
+          <button
+            type="button"
+            onClick={showPrevious}
+            aria-label="Show previous program"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition hover:border-primary/50 hover:text-primary"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={showNext}
+            aria-label="Show next program"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition hover:border-primary/50 hover:text-primary"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -18,8 +18,7 @@ export function Membership() {
     <section id="membership" className="py-20 md:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          <div className="inline-flex items-center mb-4">
             <span className="text-sm uppercase tracking-wider text-muted-foreground font-medium">Membership</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 text-balance">

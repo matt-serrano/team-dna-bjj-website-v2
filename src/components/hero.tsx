@@ -72,18 +72,18 @@ export function Hero() {
       <div className="relative z-20 mx-auto max-w-7xl px-4 pt-20 pb-24 sm:px-6 md:pt-28 md:pb-32 lg:px-8 2xl:max-w-[1500px] 2xl:px-12">
         <div className="grid min-h-[calc(100vh-11rem)] gap-14 lg:grid-cols-[1fr_0.92fr] lg:items-start 2xl:min-h-[calc(100vh-9.5rem)] 2xl:grid-cols-[1.02fr_0.98fr] 2xl:gap-[4.5rem]">
           <div className="max-w-4xl lg:-mt-4 2xl:max-w-[52rem] 2xl:pt-4">
-            <h1 className="mb-6 max-w-5xl text-4xl font-bold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-[4.5rem] 2xl:max-w-[58rem] 2xl:text-[5.6rem]">
+            <h1 className="hero-reveal mb-6 max-w-5xl text-4xl font-bold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-[4.5rem] 2xl:max-w-[58rem] 2xl:text-[5.6rem]">
               <span className="block whitespace-nowrap">Train smarter.</span>
               <span className="block whitespace-nowrap">Build confidence.</span>
               <span className="block whitespace-nowrap text-primary">Feel stronger.</span>
             </h1>
 
-            <p className="mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty md:text-xl 2xl:max-w-3xl 2xl:text-[1.35rem]">
+            <p className="hero-reveal hero-reveal-delay-1 mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty md:text-xl 2xl:max-w-3xl 2xl:text-[1.35rem]">
               Brazilian Jiu-Jitsu for beginners and experienced athletes — get stronger, learn real self-defense, and
               join a community that pushes you forward.
             </p>
 
-            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <div className="hero-reveal hero-reveal-delay-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
               <Button
                 size="lg"
                 className="rounded-full bg-primary px-8 py-6 text-base font-medium text-primary-foreground shadow-lg shadow-primary/25 hover:bg-primary/90 2xl:px-10 2xl:text-[1.05rem]"
@@ -94,14 +94,14 @@ export function Hero() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full border-border bg-transparent px-8 py-6 text-base font-medium 2xl:px-10 2xl:text-[1.05rem]"
+                className="rounded-full border-border bg-card px-8 py-6 text-base font-medium 2xl:px-10 2xl:text-[1.05rem]"
               >
                 <Play className="mr-2 h-5 w-5 fill-primary text-primary" />
                 View Programs
               </Button>
             </div>
 
-            <div className="mt-12 flex items-center gap-6 2xl:mt-14">
+            <div className="hero-reveal hero-reveal-delay-3 mt-12 flex items-center gap-6 2xl:mt-14">
               <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/80 p-2 shadow-lg shadow-black/20">
                 <Image
                   src="/images/google-logo.png"
@@ -126,7 +126,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="relative lg:-mt-2 2xl:pt-3">
+          <div className="hero-media-reveal relative lg:-mt-2 2xl:pt-3">
             <div className="pointer-events-none absolute inset-0 z-10 rounded-2xl bg-gradient-to-t from-background/30 via-transparent to-transparent md:rounded-3xl" />
             <div className="relative h-[420px] overflow-hidden rounded-2xl border border-border bg-accent shadow-2xl shadow-primary/10 sm:h-[500px] md:rounded-3xl 2xl:h-[600px]">
               {slideshowImages.map((image, index) => (

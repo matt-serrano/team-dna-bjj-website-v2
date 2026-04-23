@@ -194,13 +194,17 @@ const fragmentShader = /* glsl */ `
     }
     float brightness = core + halo;
 
-    // Strand-based dual-tone: strand 0 = white, strand 1 = deep purple
-    // Rungs interpolate (vStrand = lerp 0→1), ambient = random blend
-    vec3 color = mix(uColorPrimary, uColorAccent, vStrand);
+    // Strand-based dual-tone: strand 0 = white, strand 1 = accent
+    // Sharpen the white side: anything below 0.3 is pure white
+    float strandMix = smoothstep(0.2, 0.8, vStrand);
+    vec3 color = mix(uColorPrimary, uColorAccent, strandMix);
 
-    // White strand: crisp hot center
-    if (vStrand < 0.3 && vLayer < 0.5) {
-      color = mix(color, vec3(1.0), core * 0.2);
+    // White strand: ensure pure white with hot center
+    if (vStrand < 0.3) {
+      color = vec3(1.0);
+      if (vLayer < 0.5) {
+        color = mix(color, vec3(1.0), core * 0.3);
+      }
     }
 
     // Purple strand: boost emissive slightly for visibility against black

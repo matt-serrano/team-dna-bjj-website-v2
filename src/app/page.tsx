@@ -13,29 +13,10 @@ export default function Home() {
       <DNABackground
         speed={0.3}
         colorPrimary="#ffffff"
-        colorAccent="#2a0845"
+        colorAccent="#22A7B3"
         opacity={0.85}
         density={40}
       />
-
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6">
-        <div className="text-center">
-          <h1
-            className="text-5xl font-bold tracking-tight md:text-7xl"
-            style={{
-              background: "linear-gradient(135deg, #ffffff 0%, #e0e0e0 45%, #3d1a6e 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            DNA BJJ
-          </h1>
-          <p className="mt-4 text-lg tracking-widest text-white/40 uppercase">
-            Animation Preview
-          </p>
-        </div>
-      </div>
     </main>
   );
 }

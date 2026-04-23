@@ -15,7 +15,7 @@ export interface DNABackgroundProps {
 export function DNABackground({
   speed = 0.3,
   colorPrimary = "#ffffff",
-  colorAccent = "#2a0845",
+  colorAccent = "#22A7B3",
   opacity = 0.85,
   density = 40,
 }: DNABackgroundProps) {

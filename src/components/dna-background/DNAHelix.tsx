@@ -17,13 +17,24 @@ const SECONDARY_PER_STRAND = 1200;
 const AMBIENT_TOTAL = 600;
 const RUNG_COUNT = 45;
 const RUNG_PARTICLES_PER_LINE = 20;
-const RUNG_LINES = 3;
+const RUNG_LINES = 5;
 const RUNG_PARTICLES = RUNG_PARTICLES_PER_LINE * RUNG_LINES;
 const HELIX_LENGTH = 32.0;
 const HELIX_RADIUS = 1.6;
 const HELIX_TURNS = 5.0;
 const FLOW_SPEED = 0.04;
 const ROTATION_SPEED = 0.3;
+
+function createSeededRandom(seed: number) {
+  let value = seed >>> 0;
+
+  return () => {
+    value = (value + 0x6d2b79f5) >>> 0;
+    let next = Math.imul(value ^ (value >>> 15), 1 | value);
+    next ^= next + Math.imul(next ^ (next >>> 7), 61 | next);
+    return ((next ^ (next >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
 const snoiseGLSL = /* glsl */ `
 vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}
@@ -268,7 +279,7 @@ const lineFragmentShader = /* glsl */ `
 
 export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }: DNAHelixProps) {
   const groupRef = useRef<THREE.Group>(null);
-  const { pointer, viewport } = useThree();
+  const { gl, pointer, viewport } = useThree();
 
   const responsiveScale = useMemo(() => {
     const w = viewport.width;
@@ -282,6 +293,9 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
   const totalParticles = totalStrand + AMBIENT_TOTAL + totalRung;
 
   const particleBuffers = useMemo(() => {
+    const random = createSeededRandom(
+      0x1f2e3d4c ^ totalParticles ^ Math.round(density * 100)
+    );
     const progress = new Float32Array(totalParticles);
     const radialOffset = new Float32Array(totalParticles);
     const size = new Float32Array(totalParticles);
@@ -298,10 +312,10 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
     // Core particles — 2 strands
     for (let s = 0; s < 2; s++) {
       for (let i = 0; i < CORE_PER_STRAND; i++) {
-        progress[idx] = i / CORE_PER_STRAND + (Math.random() - 0.5) * 0.002;
-        radialOffset[idx] = (Math.random() - 0.5) * 1.0;
-        size[idx] = 1.2 + Math.random() * 1.8;
-        phase[idx] = Math.random() * Math.PI * 2;
+        progress[idx] = i / CORE_PER_STRAND + (random() - 0.5) * 0.002;
+        radialOffset[idx] = (random() - 0.5) * 1.0;
+        size[idx] = 1.2 + random() * 1.8;
+        phase[idx] = random() * Math.PI * 2;
         strand[idx] = s;
         isRung[idx] = 0; rungBase[idx] = 0; rungLine[idx] = 0;
         layer[idx] = 0;
@@ -313,10 +327,10 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
     // Secondary particles — 2 strands
     for (let s = 0; s < 2; s++) {
       for (let i = 0; i < SECONDARY_PER_STRAND; i++) {
-        progress[idx] = i / SECONDARY_PER_STRAND + (Math.random() - 0.5) * 0.005;
-        radialOffset[idx] = (Math.random() - 0.5) * 2.5;
-        size[idx] = 0.8 + Math.random() * 1.4;
-        phase[idx] = Math.random() * Math.PI * 2;
+        progress[idx] = i / SECONDARY_PER_STRAND + (random() - 0.5) * 0.005;
+        radialOffset[idx] = (random() - 0.5) * 2.5;
+        size[idx] = 0.8 + random() * 1.4;
+        phase[idx] = random() * Math.PI * 2;
         strand[idx] = s;
         isRung[idx] = 0; rungBase[idx] = 0; rungLine[idx] = 0;
         layer[idx] = 1;
@@ -327,11 +341,11 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
 
     // Ambient dispersion particles
     for (let i = 0; i < AMBIENT_TOTAL; i++) {
-      progress[idx] = Math.random();
-      radialOffset[idx] = (Math.random() - 0.5) * 3.0;
-      size[idx] = 0.6 + Math.random() * 1.0;
-      phase[idx] = Math.random() * Math.PI * 2;
-      strand[idx] = Math.random();
+      progress[idx] = random();
+      radialOffset[idx] = (random() - 0.5) * 3.0;
+      size[idx] = 0.6 + random() * 1.0;
+      phase[idx] = random() * Math.PI * 2;
+      strand[idx] = random();
       isRung[idx] = 0; rungBase[idx] = 0; rungLine[idx] = 0;
       layer[idx] = 2;
       positions[idx * 3] = 0; positions[idx * 3 + 1] = 0; positions[idx * 3 + 2] = 0;
@@ -344,10 +358,10 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
       for (let line = -1; line <= 1; line++) {
         for (let p = 0; p < RUNG_PARTICLES_PER_LINE; p++) {
           const lerpVal = p / (RUNG_PARTICLES_PER_LINE - 1);
-          progress[idx] = rungT + (Math.random() - 0.5) * 0.002;
-          radialOffset[idx] = (Math.random() - 0.5) * 0.4;
-          size[idx] = 0.7 + Math.random() * 0.9;
-          phase[idx] = Math.random() * Math.PI * 2;
+          progress[idx] = rungT + (random() - 0.5) * 0.002;
+          radialOffset[idx] = (random() - 0.5) * 0.4;
+          size[idx] = 0.7 + random() * 0.9;
+          phase[idx] = random() * Math.PI * 2;
           strand[idx] = lerpVal;
           isRung[idx] = 1;
           rungBase[idx] = lerpVal;
@@ -360,7 +374,7 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
     }
 
     return { positions, progress, radialOffset, size, phase, strand, isRung, rungBase, rungLine, layer };
-  }, [totalParticles]);
+  }, [density, totalParticles]);
 
   const lineBuffers = useMemo(() => {
     const lineProgress = new Float32Array(RUNG_COUNT * 2);
@@ -381,7 +395,7 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
       uniforms: {
         uTime: { value: 0 }, uFlowSpeed: { value: FLOW_SPEED },
         uRotationSpeed: { value: ROTATION_SPEED },
-        uPixelRatio: { value: typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 1.5) : 1 },
+        uPixelRatio: { value: Math.min(gl.getPixelRatio(), 1.5) },
         uMouse: { value: new THREE.Vector2(0, 0) },
         uHelixLength: { value: HELIX_LENGTH }, uHelixRadius: { value: HELIX_RADIUS },
         uHelixTurns: { value: HELIX_TURNS },
@@ -391,7 +405,7 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
       },
       transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: true,
     }),
-    [colorPrimary, colorAccent, opacity]
+    [colorPrimary, colorAccent, gl, opacity]
   );
 
   const lineMaterial = useMemo(
@@ -417,6 +431,7 @@ export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }:
     smoothMouse.current.x += (pointer.x - smoothMouse.current.x) * 0.03;
     smoothMouse.current.y += (pointer.y - smoothMouse.current.y) * 0.03;
     particleMaterial.uniforms.uTime.value = elapsed;
+    particleMaterial.uniforms.uPixelRatio.value = Math.min(gl.getPixelRatio(), 1.5);
     particleMaterial.uniforms.uMouse.value.set(smoothMouse.current.x, smoothMouse.current.y);
     lineMaterial.uniforms.uTime.value = elapsed;
     if (groupRef.current) {

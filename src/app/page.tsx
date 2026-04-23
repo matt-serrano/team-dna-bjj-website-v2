@@ -12,8 +12,8 @@ export default function Home() {
     <main className="relative min-h-screen w-full overflow-hidden bg-[#030305]">
       <DNABackground
         speed={0.3}
-        colorPrimary="#a0c4ff"
-        colorAccent="#7b2ff7"
+        colorPrimary="#ffffff"
+        colorAccent="#2a0845"
         opacity={0.85}
         density={40}
       />
@@ -23,7 +23,7 @@ export default function Home() {
           <h1
             className="text-5xl font-bold tracking-tight md:text-7xl"
             style={{
-              background: "linear-gradient(135deg, #ffffff 0%, #a0c4ff 50%, #7b2ff7 100%)",
+              background: "linear-gradient(135deg, #ffffff 0%, #e0e0e0 45%, #3d1a6e 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",

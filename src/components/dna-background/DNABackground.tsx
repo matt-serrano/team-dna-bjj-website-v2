@@ -10,6 +10,7 @@ export interface DNABackgroundProps {
   colorAccent?: string;
   opacity?: number;
   density?: number;
+  scale?: number;
 }
 
 export function DNABackground({
@@ -18,6 +19,7 @@ export function DNABackground({
   colorAccent = "#22A7B3",
   opacity = 0.85,
   density = 40,
+  scale = 1,
 }: DNABackgroundProps) {
   return (
     <div
@@ -32,8 +34,8 @@ export function DNABackground({
       <Canvas
         dpr={[1, 1.5]}
         camera={{
-          position: [0, 1.5, 14],
-          fov: 50,
+          position: [0, 1.05, 9.5],
+          fov: 54,
           near: 0.1,
           far: 100,
         }}
@@ -42,9 +44,8 @@ export function DNABackground({
           alpha: true,
           powerPreference: "high-performance",
         }}
-        style={{ pointerEvents: "auto" }}
+        style={{ pointerEvents: "none", background: "transparent" }}
       >
-        <color attach="background" args={["#030305"]} />
         <fog attach="fog" args={["#030305", 15, 40]} />
 
         <Suspense fallback={null}>
@@ -54,6 +55,7 @@ export function DNABackground({
             colorAccent={colorAccent}
             opacity={opacity}
             density={density}
+            scale={scale}
           />
         </Suspense>
       </Canvas>

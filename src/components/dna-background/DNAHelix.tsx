@@ -10,6 +10,7 @@ interface DNAHelixProps {
   colorAccent: string;
   opacity: number;
   density: number;
+  scale?: number;
 }
 
 const CORE_PER_STRAND = 2000;
@@ -277,16 +278,25 @@ const lineFragmentShader = /* glsl */ `
   }
 `;
 
-export function DNAHelix({ speed, colorPrimary, colorAccent, opacity, density }: DNAHelixProps) {
+export function DNAHelix({
+  speed,
+  colorPrimary,
+  colorAccent,
+  opacity,
+  density,
+  scale = 1,
+}: DNAHelixProps) {
   const groupRef = useRef<THREE.Group>(null);
   const { gl, pointer, viewport } = useThree();
 
   const responsiveScale = useMemo(() => {
     const w = viewport.width;
-    if (w < 6) return 0.5;
-    if (w < 10) return 0.7;
-    return 1;
-  }, [viewport.width]);
+    if (w < 6) return 0.8 * scale;
+    if (w < 10) return 0.98 * scale;
+    if (w < 14) return 1.16 * scale;
+    if (w < 18) return 1.36 * scale;
+    return 1.56 * scale;
+  }, [scale, viewport.width]);
 
   const totalStrand = (CORE_PER_STRAND + SECONDARY_PER_STRAND) * 2;
   const totalRung = RUNG_COUNT * RUNG_PARTICLES;

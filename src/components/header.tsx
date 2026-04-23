@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
@@ -8,35 +9,44 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
+    <header className="sticky top-0 z-50 border-b border-white/8 bg-black backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <HugoLogo />
-            <span className="font-semibold text-foreground text-xl">Hugo</span>
+          <div className="flex items-center">
+            <Image
+              src="/images/TeamDnaLogo.png"
+              alt="Team DNA logo"
+              width={144}
+              height={44}
+              className="h-11 w-auto object-contain"
+              priority
+            />
           </div>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Features
+            <a href="#home" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Home
             </a>
-            <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              How it works
+            <a href="#programs" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Programs
             </a>
-            <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Pricing
+            <a href="#schedule" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Schedule
             </a>
-            <a href="#testimonials" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Reviews
+            <a href="#membership" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Membership
+            </a>
+            <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </a>
+            <a href="#blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Blog
             </a>
             <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               FAQ
             </a>
           </nav>
 
-          {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
             <Button variant="ghost" className="text-sm font-medium">
               Log in
@@ -46,27 +56,31 @@ export function Header() {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+          <button className="md:hidden p-2 text-foreground" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
+          <div className="md:hidden py-4 border-t border-white/8 bg-black/55 backdrop-blur-xl">
             <nav className="flex flex-col gap-4">
-              <a href="#features" className="text-sm text-muted-foreground hover:text-foreground">
-                Features
+              <a href="#home" className="text-sm text-muted-foreground hover:text-foreground">
+                Home
               </a>
-              <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground">
-                How it works
+              <a href="#programs" className="text-sm text-muted-foreground hover:text-foreground">
+                Programs
               </a>
-              <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground">
-                Pricing
+              <a href="#schedule" className="text-sm text-muted-foreground hover:text-foreground">
+                Schedule
               </a>
-              <a href="#testimonials" className="text-sm text-muted-foreground hover:text-foreground">
-                Reviews
+              <a href="#membership" className="text-sm text-muted-foreground hover:text-foreground">
+                Membership
+              </a>
+              <a href="#about" className="text-sm text-muted-foreground hover:text-foreground">
+                About
+              </a>
+              <a href="#blog" className="text-sm text-muted-foreground hover:text-foreground">
+                Blog
               </a>
               <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground">
                 FAQ
@@ -82,16 +96,5 @@ export function Header() {
         )}
       </div>
     </header>
-  )
-}
-
-function HugoLogo() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="8" cy="8" r="3" fill="currentColor" className="text-primary" />
-      <circle cx="16" cy="8" r="3" fill="currentColor" className="text-primary" />
-      <circle cx="8" cy="16" r="3" fill="currentColor" className="text-primary" />
-      <circle cx="16" cy="16" r="3" fill="currentColor" className="text-primary" />
-    </svg>
   )
 }

@@ -1,0 +1,44 @@
+april 22, 2026:
+completed:
+- animation
+- website unpacking
+
+planning:
+- nice particle dna animation in the background
+- use v0 design as base 
+- divide sections: home, programs, calendar/schedule, memberships + add visitor waiver, coaches, blog, faq
+- finish home page
+
+more considerations:
+❓ Do users (customers) need a Stripe account?
+No, customers do not need a Stripe account; they simply enter their payment details or use Apple Pay/Google Pay.
+
+❓ Who needs a Stripe account?
+Only the admin (gym owner) needs a Stripe account to receive payments and manage payouts.
+
+❓ Can our website act as a controller for payments instead of holding money?
+Yes, your site can create and manage payments while Stripe handles processing and sends funds directly to the admin’s account.
+
+❓ Can the admin link their Stripe account through our app?
+Yes, using Stripe Connect, the admin can link their account so your app can manage payments on their behalf.
+
+❓ Does connecting Stripe automatically handle everything?
+No, Stripe handles payments and subscriptions, but your app must manage users, memberships, and logic.
+
+❓ Where does the money go when a user pays?
+The money goes directly to the admin’s Stripe account, not yours.
+
+❓ Do we still need user accounts in our app?
+Yes, you need user accounts to track memberships, access, and link users to their payments.
+
+❓ How do we keep our system updated with payments?
+Use webhooks so Stripe notifies your app when payments succeed, fail, or change.
+
+❓ What should we use for payments in v1?
+Use Stripe Checkout because it is simple, secure, and handles subscriptions out of the box.
+
+❓ Why is this setup important since the site is a gift?
+It ensures the business owns its payments and accounts, so you are not responsible for money or long-term maintenance.
+
+other considerations:
+- brand new interface for users and admins, must have

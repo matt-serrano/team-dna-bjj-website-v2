@@ -1,10 +1,10 @@
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
-import { LogoCloud } from "@/components/logo-cloud"
-import { Features } from "@/components/features"
-import { HowItWorks } from "@/components/how-it-works"
-import { Pricing } from "@/components/pricing"
-import { Testimonials } from "@/components/testimonials"
+import { Programs } from "@/components/programs"
+import { Schedule } from "@/components/schedule"
+import { Membership } from "@/components/membership"
+import { Coaches } from "@/components/coaches"
+import { Blog } from "@/components/blog"
 import { FAQ } from "@/components/faq"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
@@ -14,11 +14,11 @@ export default function HugoLandingPage() {
     <div className="min-h-screen bg-background">
       <Header />
       <Hero />
-      <LogoCloud />
-      <Features />
-      <HowItWorks />
-      <Pricing />
-      <Testimonials />
+      <Programs />
+      <Schedule />
+      <Membership />
+      <Coaches />
+      <Blog />
       <FAQ />
       <CTA />
       <Footer />

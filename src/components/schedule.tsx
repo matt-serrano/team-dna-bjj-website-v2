@@ -206,9 +206,9 @@ export function Schedule() {
 
   if (!viewMonth || !selectedDateKey || !today) {
     return (
-      <section id="schedule" className="bg-accent py-20 md:py-32">
+      <section className="bg-accent py-20 md:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-16 max-w-3xl text-center">
+          <div id="schedule" className="mx-auto mb-16 max-w-3xl scroll-mt-[4.5rem] text-center">
             <div className="mb-4 inline-flex items-center">
               <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Schedule</span>
             </div>
@@ -226,9 +226,9 @@ export function Schedule() {
   }
 
   return (
-    <section id="schedule" className="bg-accent py-20 md:py-32">
+    <section className="bg-accent py-20 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-16 max-w-3xl text-center">
+        <div id="schedule" className="mx-auto mb-16 max-w-3xl scroll-mt-[4.5rem] text-center">
           <div className="mb-4 inline-flex items-center">
             <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Schedule</span>
           </div>

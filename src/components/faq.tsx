@@ -120,9 +120,9 @@ export function FAQ() {
   }
 
   return (
-    <section id="faq" className="bg-background py-20 md:py-32">
+    <section className="bg-background py-20 md:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
+        <div id="faq" className="mb-16 scroll-mt-[4.5rem] text-center">
           <div className="mb-4 inline-flex items-center">
             <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">FAQ</span>
           </div>

@@ -15,9 +15,9 @@ const posts = [
 
 export function Blog() {
   return (
-    <section id="blog" className="py-20 md:py-32 bg-background">
+    <section className="py-20 md:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div id="blog" className="text-center max-w-3xl mx-auto mb-16 scroll-mt-[4.5rem]">
           <div className="inline-flex items-center mb-4">
             <span className="text-sm uppercase tracking-wider text-muted-foreground font-medium">Blog</span>
           </div>

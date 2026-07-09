@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
@@ -48,11 +49,11 @@ export function Header() {
           </nav>
 
           <div className="hero-reveal hero-reveal-delay-2 hidden md:flex items-center gap-3">
-            <Button variant="ghost" className="text-sm font-medium">
-              Log in
+            <Button asChild variant="ghost" className="text-sm font-medium">
+              <Link href="/login">Log in</Link>
             </Button>
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-5 text-sm font-medium">
-              Get started
+            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-5 text-sm font-medium">
+              <a href="#membership">Get started</a>
             </Button>
           </div>
 
@@ -86,10 +87,12 @@ export function Header() {
                 FAQ
               </a>
               <div className="flex flex-col gap-2 pt-4">
-                <Button variant="ghost" className="justify-start">
-                  Log in
+                <Button asChild variant="ghost" className="justify-start">
+                  <Link href="/login">Log in</Link>
                 </Button>
-                <Button className="bg-primary text-primary-foreground rounded-full">Get started</Button>
+                <Button asChild className="bg-primary text-primary-foreground rounded-full">
+                  <a href="#membership">Get started</a>
+                </Button>
               </div>
             </nav>
           </div>
